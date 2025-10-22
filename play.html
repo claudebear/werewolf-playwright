@@ -34,7 +34,7 @@
 <label>Plot / Main Events:</label>
 <textarea id="plotPoints" placeholder="Describe the main plot points"></textarea>
 
-<button onclick="generatePlaywright()">Generate Playwright</button>
+<button onclick="generatePlaywright()">Generate Script</button>
 
 <h2>Generated Playwright:</h2>
 <pre id="output"></pre>
@@ -59,7 +59,7 @@ Plot points: ${plotPoints}
 Please provide scene-by-scene breakdown, including acts, characters on stage, dialogue, and stage directions.
 `;
 
-  document.getElementById('output').textContent = "Generating playwright...";
+  document.getElementById('output').textContent = "Generating script...";
 
   try {
     const response = await fetch('http://localhost:3000/generate', {
@@ -79,3 +79,4 @@ Please provide scene-by-scene breakdown, including acts, characters on stage, di
 
 </body>
 </html>
+
