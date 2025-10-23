@@ -53,10 +53,11 @@ app.post('/generate', async (req, res) => {
 
   } catch (err) {
     console.error('Backend error:', err);
-    res.status(500).json({ error: 'Failed to generate playwright', details: err.message });
+    res.status(500).json({ error: 'Failed to generate script', details: err.message });
   }
 });
 
 app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
 });
+
