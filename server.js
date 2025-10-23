@@ -86,11 +86,10 @@ Output full stage scripts with vivid dialogue and scene directions.
 
   } catch (err) {
     console.error('Backend error:', err);
-    res.status(500).json({ error: 'Failed to generate script', details: err.message });
+    res.status(500).json({ error: 'Failed to generate playwright', details: err.message });
   }
 });
 
 app.listen(PORT, () => {
   console.log(`✅ Werewolf Playwright server running on http://localhost:${PORT}`);
 });
-
