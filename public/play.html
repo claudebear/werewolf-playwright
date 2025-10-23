@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Werewolf Playwright Generator</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #111;
+      color: #eee;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #ff4444;
+      letter-spacing: 1px;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: none;
+      margin-top: 0.5rem;
+    }
+    button {
+      background-color: #ff4444;
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #ff6666;
+    }
+    #output {
+      white-space: pre-wrap;
+      background-color: #222;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>🐺 Werewolf Script Generator</h1>
+
+  <label for="settings">Setting / Theme</label>
+  <input id="settings" placeholder="e.g., A medieval village under a blood moon" />
+
+  <label for="characters">Characters (comma-separated)</label>
+  <textarea id="characters" rows="3" placeholder="e.g., Alice the Healer, Bob the Hunter, Clara the Seer"></textarea>
+
+  <label for="wolves">Number of Werewolves</label>
+  <input id="wolves" type="number" value="2" min="1" />
+
+  <label for="doctor">Number of Doctors</label>
+  <input id="doctor" type="number" value="1" min="0" />
+
+  <button id="generate">Generate Playwright</button>
+
+  <div id="output"></div>
+
+  <script>
+    document.getElementById("generate").addEventListener("click", async () => {
+      const settings = document.getElementById("settings").value.trim();
+      const characters = document.getElementById("characters").value.trim();
+      const numWolves = document.getElementById("wolves").value;
+      const numDoctor = document.getElementById("doctor").value;
+
+      if (!settings || !characters) {
+        alert("Please fill in settings and characters!");
+        return;
+      }
+
+      document.getElementById("output").innerText = "🕯️ Summoning your Werewolf script... Please wait.";
+
+      try {
+        const res = await fetch("/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ settings, characters, numWolves, numDoctor })
+        });
+
+        const data = await res.json();
+        document.getElementById("output").innerText = data.response || "No response received.";
+      } catch (err) {
+        console.error(err);
+        document.getElementById("output").innerText = "❌ Error generating play.";
+      }
+    });
+  </script>
+</body>
+</html>
